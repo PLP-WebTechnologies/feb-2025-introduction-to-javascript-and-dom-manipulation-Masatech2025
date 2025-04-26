@@ -1,45 +1,37 @@
-// Change logo text
+1. Change text content dynamically
 document.querySelector('.logo').textContent = "MyShop Superstore";
 
-// Change body background color
+// 2. Modify CSS styles dynamically
 document.querySelector('body').style.backgroundColor = "#eef2f3";
+document.querySelector('h1').style.color = "blue";
 
-// Change h1 text
-document.querySelector('h1').textContent = "Welcome to MyShop - Best Deals!";
+// 3. Add a new product item dynamically
+const newProduct = document.createElement('div');
+newProduct.classList.add('product-item');
+newProduct.innerHTML =
+    <h2>New Product</h2>
+    <img src="images/new_product.jpg" alt="New Product">
+    <p class="price">$99</p>
+    <button class="buy-btn">Buy Now</button>
+;
 
-// Modify navbar
-const navbar = document.querySelector('.navbar');
-navbar.style.backgroundColor = 'darkgreen';
-navbar.style.padding = '20px';
+// Add it into the product-grid
+const productGrid = document.querySelector('.product-grid');
+productGrid.appendChild(newProduct);
 
-// Add "Add New Product" button
-const productsSection = document.querySelector('.product-grid');
-const newProductButton = document.createElement('button');
-newProductButton.textContent = 'Add New Product';
-newProductButton.classList.add('buy-btn');
-document.querySelector('main').insertBefore(newProductButton, productsSection);
-
-newProductButton.addEventListener('click', () => {
-    const newProduct = document.createElement('div');
-    newProduct.className = 'product-item';
-    newProduct.innerHTML = `
-        <h2>New Product</h2>
-        <img src="images/new_product.jpg" alt="New Product">
-        <p class="price">$99.99</p>
-        <button class="buy-btn">Buy Now</button>
-    `;
-    productsSection.appendChild(newProduct);
-});
-
-// Add "Remove Last Product" button
+// 4. Create a button to remove last product
 const removeButton = document.createElement('button');
-removeButton.textContent = 'Remove Last Product';
-removeButton.classList.add('buy-btn');
-document.querySelector('main').appendChild(removeButton);
+removeButton.textContent = "Remove Last Product";
+removeButton.className = "buy-btn";
+removeButton.style.marginTop = "20px";
 
-removeButton.addEventListener('click', () => {
-    const productItems = document.querySelectorAll('.product-item');
-    if (productItems.length > 0) {
-        productsSection.removeChild(productItems[productItems.length - 1]);
+// Add remove button after product grid
+productGrid.parentElement.appendChild(removeButton);
+
+// 5. Button click to remove last product item
+removeButton.addEventListener('click', function() {
+    const lastProduct = document.querySelector('.product-grid').lastElementChild;
+    if(lastProduct) {
+        lastProduct.remove();
     }
 });
